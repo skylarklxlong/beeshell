@@ -252,7 +252,7 @@ export class Cascader extends Component {
                 ] },
                 React.createElement(Text, { style: [
                         styles.itemText,
-                        active ? { color: variables.mtdBrandPrimaryDark, fontWeight: 'bold' } : {},
+                        active ? { color: variables.mtdBrandPrimaryDark, fontWeight: 'bold' } : {color: 'black',},
                     ], ellipsizeMode: 'middle' }, item[fieldKeys.labelKey]),
                 !isLeafNode ? React.createElement(Icon, { source: require(`../../common/images/icons/angle-right.png`), size: variables.mtdFontSizeM, tintColor: variables.mtdGrayLighter }) : null)));
     }
