@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Animated, Dimensions, ScrollView } from 'react-native';
+import { View, TouchableOpacity, Animated, Dimensions, ScrollView,Platform,BackHandler } from 'react-native';
 import { TopviewGetInstance } from '../Topview';
 import { FadeAnimated } from '../../common/animations';
 import modalStyles from './styles';
@@ -73,7 +73,26 @@ export class Modal extends React.Component {
             this.init(nextProps, false);
         }
     }
+    componentWillMount() {
+        if (Platform.OS === "android") {
+          BackHandler.addEventListener("hardwareBackPress", this.onBackAndroid);
+        }
+    }
+    onBackAndroid = () => {
+        /**
+         * 回调函数是倒序执行的（即后添加的函数先执行）。
+         * 如果某一个函数返回 true，则后续的函数都不会被调用。
+         * 如果没有添加任何监听函数，或者所有的监听函数都返回 false，则会执行默认行为，退出应用。
+         */
+        this.close().catch(e => {
+            return null;
+        });
+        // return false;
+    }
     componentWillUnmount() {
+        if (Platform.OS === "android") {
+            BackHandler.removeEventListener("hardwareBackPress",this.onBackAndroid);
+          }
         this.close().catch(e => {
             return null;
         });
