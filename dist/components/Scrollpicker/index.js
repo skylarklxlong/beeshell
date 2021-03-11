@@ -212,7 +212,8 @@ export class Scrollpicker extends React.Component {
         this.scrollers[scrollIndex] && this.scrollers[scrollIndex].scrollTo && this.scrollers[scrollIndex].scrollTo({
             x: 0,
             y: newScrollHeight,
-            animated: animated === false ? false : true
+            // animated: animated === false ? false : true,
+            animated: false,
         });
         const targetItemIndex = newScrollHeight / targetItemHeight;
         return targetItemIndex;
