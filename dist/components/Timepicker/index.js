@@ -7,15 +7,21 @@ export class Timepicker extends React.Component {
         this.handleChange = (columnIndex, rowIndex) => {
             const { list, value } = this.state;
             const tmpValue = value.concat();
-            tmpValue.splice(columnIndex, 1, rowIndex);
-            const ret = tmpValue.map((valueItem, valueIndex) => {
-                return list[valueIndex][valueItem].value;
-            });
-            this.setState({
-                ...this.state,
-                value: ret,
-            })
-            this.props.onChange && this.props.onChange(ret.join(':'));
+            if (tmpValue) {
+                tmpValue.splice(columnIndex, 1, rowIndex);
+                const ret = tmpValue.map((valueItem, valueIndex) => {
+                    if (list && list[valueIndex] && list[valueIndex][valueItem]) {
+                        return list[valueIndex][valueItem].value;
+                    } else {
+                        return ['08','30','30'];
+                    }
+                });
+                this.setState({
+                    ...this.state,
+                    value: ret,
+                })
+                this.props.onChange && this.props.onChange(ret.join(':'));
+            }
         };
         this.state = {
             ...this.init(props)
